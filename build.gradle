@@ -1,0 +1,44 @@
+buildscript {
+	ext {
+		springBootVersion = "2.5.4"
+		flyway = "7.14.0"
+	}
+
+	dependencies {
+		classpath 'org.postgresql:postgresql:42.2.23'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.flywaydb.flyway" version "7.14.0"
+	id 'java'
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/shopping'
+	user = 'dev'
+	password = 'dev1'
+	locations = ['classpath:db/migration']
+}
+
+group = 'com.challenge'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	implementation "org.flywaydb:flyway-core:${flyway}"
+	implementation "org.postgresql:postgresql:42.2.23"
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+test {
+	useJUnitPlatform()
+}
